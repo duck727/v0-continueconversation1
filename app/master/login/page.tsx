@@ -6,15 +6,14 @@ const MASTER_PASSWORD = "master"
 
 async function loginAction(formData: FormData) {
   "use server"
-  const token = process.env.MASTER_ACCESS_TOKEN || MASTER_PASSWORD
   const password = String(formData.get("password") ?? "")
 
-  if (password !== token) {
+  if (password !== MASTER_PASSWORD) {
     redirect("/master/login?error=1")
   }
 
   const cookieStore = await cookies()
-  cookieStore.set(MASTER_COOKIE, token, {
+  cookieStore.set(MASTER_COOKIE, MASTER_PASSWORD, {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
