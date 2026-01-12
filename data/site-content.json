@@ -1,0 +1,120 @@
+{
+  "storage": {
+    "provider": "local",
+    "note": "Local uploads save to /public/uploads. Replace with Vercel Blob or S3 for production persistence."
+  },
+  "home": {
+    "hero": {
+      "badge": "Viral-Proven K-Beauty Brands",
+      "title": "Stock the",
+      "titleHighlight": "Next Trend.",
+      "subtitle": "Our PB brands are already viral on TikTok. Now they're ready for your shelves. Partner with EOEO to distribute proven K-Beauty winners.",
+      "ctaPrimary": "Become a Distributor",
+      "ctaSecondary": "View Our Brands",
+      "heroMedia": {
+        "type": "image",
+        "url": "/luxury-beauty-products-elegant-display-dark-backgr.jpg",
+        "alt": "Premium K-Beauty product display"
+      }
+    }
+  },
+  "brands": {
+    "marsmade": {
+      "name": "MARSMADE",
+      "tagline": "Solid care. Zero waste.",
+      "oneLiner": "A bold solid-care brand proving performance on Amazon — built for sustainable, viral growth.",
+      "color": "#4AE3C3",
+      "heroMedia": {
+        "type": "image",
+        "url": "/tiktok-dermafirm-eyebrow-beauty.jpg",
+        "alt": "MARSMADE hero visual"
+      },
+      "metrics": [
+        { "label": "Views (2025)", "value": "100M+" },
+        { "label": "Hair Shampoo", "value": "#1 New Release" },
+        { "label": "Category Rank", "value": "Top #5" },
+        { "label": "Amazon Rating", "value": "4.7★" },
+        { "label": "Eco Impact", "value": "1 bar = 2-3 bottles" },
+        { "label": "Packaging", "value": "Zero plastic" }
+      ],
+      "skus": [
+        { "name": "Castor Oil Shampoo Bar", "description": "Moisturize & strengthen hair and scalp." },
+        { "name": "Rosemary Shampoo Bar", "description": "Refresh scalp & support fuller-looking hair." },
+        { "name": "Tea Tree Shampoo Bar", "description": "Purify & balance scalp." },
+        { "name": "Rice Water Shampoo Bar", "description": "Strengthen & improve elasticity." },
+        { "name": "Castor Oil Conditioner Bar", "description": "Nourish, detangle, enhance shine." },
+        { "name": "PLA Mesh Saver", "description": "Keep bars dry & long-lasting." }
+      ],
+      "channels": ["Amazon.com", "DTC Website", "TikTok Shop"]
+    },
+    "kiero": {
+      "name": "KIERO",
+      "tagline": "Practical, sensible, effective.",
+      "oneLiner": "K-Beauty science meets LATAM energy — built for everyday routines and creator-led growth.",
+      "color": "#EC4899",
+      "heroMedia": {
+        "type": "image",
+        "url": "/tiktok-beauty-skincare-review--pais.jpg",
+        "alt": "KIERO hero visual"
+      },
+      "metrics": [
+        { "label": "Launch", "value": "Mexico EBS" },
+        { "label": "Strategy", "value": "TikTok Seeding" },
+        { "label": "Concept", "value": "5-Step Routine" },
+        { "label": "Status", "value": "Creator Ready" }
+      ],
+      "skus": [
+        { "name": "Calm Enzyme Cleanser", "description": "Gentle cleanse for daily routines." },
+        { "name": "Airy Sun Stick", "description": "Easy re-application, on-the-go UV care." },
+        { "name": "Prime Sun Gel", "description": "Lightweight daily sun protection." },
+        { "name": "Centella Boost Serum", "description": "Calm & hydrate for everyday recovery." },
+        { "name": "Hydrating Eye Cream", "description": "Daily moisture for the eye area." }
+      ],
+      "channels": ["LATAM Retail", "TikTok Shop", "Global Expansion"]
+    },
+    "code-bro": {
+      "name": "CODE BRO",
+      "tagline": "Men's grooming, leveled up.",
+      "oneLiner": "Modern men's personal care brand with bold branding and effective formulas — built for conversion.",
+      "color": "#3B82F6",
+      "heroMedia": {
+        "type": "image",
+        "url": "/tiktok-milk-touch-mascara-beauty.jpg",
+        "alt": "CODE BRO hero visual"
+      },
+      "metrics": [
+        { "label": "First Month GMV", "value": "500K+" },
+        { "label": "SKUs", "value": "8" },
+        { "label": "Market", "value": "US" },
+        { "label": "Focus", "value": "Men's Care" }
+      ],
+      "skus": [
+        { "name": "MORNING WOOD", "description": "Energizing morning face wash." },
+        { "name": "FRENCH BALLDOG", "description": "Cooling body wash." },
+        { "name": "CLEAN BEANS", "description": "Intimate care for men." },
+        { "name": "WOOD MORNING", "description": "PM recovery face wash." },
+        { "name": "DOWN UNDER", "description": "Below-the-belt powder." }
+      ],
+      "channels": ["Amazon US", "TikTok Shop US"]
+    },
+    "404-lab": {
+      "name": "404 LAB",
+      "tagline": "Trend-first beauty.",
+      "oneLiner": "Experimental beauty collection for the modern consumer — designed for viral moments.",
+      "color": "#A855F7",
+      "heroMedia": {
+        "type": "image",
+        "url": "/tiktok-influencer-beauty-product-review.jpg",
+        "alt": "404 LAB hero visual"
+      },
+      "metrics": [
+        { "label": "Status", "value": "In Development" },
+        { "label": "Focus", "value": "Gen-Z Beauty" },
+        { "label": "Strategy", "value": "Trend-First" },
+        { "label": "Launch", "value": "2025" }
+      ],
+      "skus": [{ "name": "Coming Soon", "description": "Product lineup in development." }],
+      "channels": ["TBD"]
+    }
+  }
+}
