@@ -1,7 +1,7 @@
 {
   "storage": {
-    "provider": "local",
-    "note": "Local uploads save to /public/uploads. Replace with Vercel Blob or S3 for production persistence."
+    "provider": "blob",
+    "note": "Using Vercel Blob for persistent cloud storage. Files are automatically served via CDN."
   },
   "home": {
     "hero": {

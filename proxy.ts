@@ -2,8 +2,9 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 const MASTER_COOKIE = "master_auth"
+const MASTER_PASSWORD = "thsdudejr1!"
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (!pathname.startsWith("/master")) {
@@ -14,10 +15,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const token = process.env.MASTER_ACCESS_TOKEN
+  const token = process.env.MASTER_ACCESS_TOKEN || MASTER_PASSWORD
   const cookie = request.cookies.get(MASTER_COOKIE)?.value
 
-  if (!token || cookie !== token) {
+  if (cookie !== token) {
     const url = request.nextUrl.clone()
     url.pathname = "/master/login"
     url.searchParams.set("from", pathname)

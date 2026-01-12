@@ -4,14 +4,15 @@ import { getSiteContent, saveSiteContent } from "@/lib/content"
 
 const MASTER_COOKIE = "master_auth"
 
-const isAuthorized = () => {
+const isAuthorized = async () => {
   const token = process.env.MASTER_ACCESS_TOKEN
-  const cookie = cookies().get(MASTER_COOKIE)?.value
+  const cookieStore = await cookies()
+  const cookie = cookieStore.get(MASTER_COOKIE)?.value
   return Boolean(token && cookie === token)
 }
 
 export async function GET() {
-  if (!isAuthorized()) {
+  if (!(await isAuthorized())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
@@ -20,7 +21,7 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
-  if (!isAuthorized()) {
+  if (!(await isAuthorized())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 

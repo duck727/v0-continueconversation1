@@ -24,7 +24,7 @@ export type BrandContent = {
 
 export type SiteContent = {
   storage: {
-    provider: "local" | "manual"
+    provider: "local" | "manual" | "blob"
     note?: string
   }
   home: {

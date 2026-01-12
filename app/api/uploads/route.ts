@@ -1,5 +1,6 @@
-import { NextRequest, NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
+import { put } from "@vercel/blob"
 import crypto from "crypto"
 import path from "path"
 import { promises as fs } from "fs"
@@ -8,7 +9,8 @@ const MASTER_COOKIE = "master_auth"
 
 export async function POST(request: NextRequest) {
   const token = process.env.MASTER_ACCESS_TOKEN
-  const cookie = cookies().get(MASTER_COOKIE)?.value
+  const cookieStore = await cookies()
+  const cookie = cookieStore.get(MASTER_COOKIE)?.value
 
   if (!token || cookie !== token) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
@@ -16,15 +18,32 @@ export async function POST(request: NextRequest) {
 
   const provider = request.nextUrl.searchParams.get("provider") ?? "local"
 
-  if (provider !== "local") {
-    return NextResponse.json({ error: "Unsupported provider" }, { status: 400 })
-  }
-
   const formData = await request.formData()
   const file = formData.get("file")
 
   if (!(file instanceof File)) {
     return NextResponse.json({ error: "Missing file" }, { status: 400 })
+  }
+
+  if (provider === "blob") {
+    try {
+      const extension = path.extname(file.name) || (file.type.startsWith("video/") ? ".mp4" : ".jpg")
+      const filename = `${Date.now()}-${crypto.randomUUID()}${extension}`
+
+      const blob = await put(filename, file, {
+        access: "public",
+      })
+
+      return NextResponse.json({ url: blob.url })
+    } catch (error) {
+      console.error("Blob upload error:", error)
+      return NextResponse.json({ error: "Blob upload failed" }, { status: 500 })
+    }
+  }
+
+  // Local upload fallback
+  if (provider !== "local") {
+    return NextResponse.json({ error: "Unsupported provider" }, { status: 400 })
   }
 
   const buffer = Buffer.from(await file.arrayBuffer())
