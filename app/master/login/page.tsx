@@ -8,10 +8,15 @@ async function loginAction(formData: FormData) {
   "use server"
   const password = String(formData.get("password") ?? "")
 
+  console.log("[v0] Login attempt with password:", password)
+  console.log("[v0] Expected password:", MASTER_PASSWORD)
+
   if (password !== MASTER_PASSWORD) {
+    console.log("[v0] Password mismatch, redirecting with error")
     redirect("/master/login?error=1")
   }
 
+  console.log("[v0] Password correct, setting cookie")
   const cookieStore = await cookies()
   cookieStore.set(MASTER_COOKIE, MASTER_PASSWORD, {
     httpOnly: true,
@@ -20,6 +25,7 @@ async function loginAction(formData: FormData) {
     maxAge: 60 * 60 * 24, // 24 hours
   })
 
+  console.log("[v0] Cookie set, redirecting to /master")
   redirect("/master")
 }
 
@@ -31,9 +37,15 @@ export default async function MasterLogin({
   const params = await searchParams
   const hasError = params.error === "1"
 
+  const cookieStore = await cookies()
+  const existingAuth = cookieStore.get(MASTER_COOKIE)?.value
+  if (existingAuth === MASTER_PASSWORD) {
+    redirect("/master")
+  }
+
   return (
-    <div className="min-h-screen slush-bg text-white flex items-center justify-center px-6">
-      <div className="w-full max-w-md card-slush p-8">
+    <div className="min-h-screen bg-[#030014] text-white flex items-center justify-center px-6">
+      <div className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
         <h1 className="text-3xl font-semibold mb-2">Master Access</h1>
         <p className="text-sm text-white/50 mb-6">Enter the master password to manage site content.</p>
 
@@ -46,7 +58,7 @@ export default async function MasterLogin({
               id="password"
               name="password"
               type="password"
-              className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white"
+              className="mt-2 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white focus:outline-none focus:border-teal-400"
               placeholder="Enter password"
               required
               autoComplete="current-password"
@@ -55,7 +67,10 @@ export default async function MasterLogin({
 
           {hasError && <p className="text-sm text-red-400">Invalid password. Try again.</p>}
 
-          <button className="btn-slush btn-slush-primary w-full" type="submit">
+          <button
+            className="w-full py-3 bg-gradient-to-r from-teal-500 to-cyan-500 text-black font-semibold rounded-xl hover:opacity-90 transition-opacity"
+            type="submit"
+          >
             Unlock Master Page
           </button>
         </form>

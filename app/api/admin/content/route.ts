@@ -6,14 +6,17 @@ const MASTER_COOKIE = "master_auth"
 const MASTER_PASSWORD = "master"
 
 const isAuthorized = async () => {
-  const token = process.env.MASTER_ACCESS_TOKEN || MASTER_PASSWORD
   const cookieStore = await cookies()
   const cookie = cookieStore.get(MASTER_COOKIE)?.value
-  return Boolean(cookie === token)
+  console.log("[v0] API auth check - cookie value:", cookie, "expected:", MASTER_PASSWORD)
+  return cookie === MASTER_PASSWORD
 }
 
 export async function GET() {
-  if (!(await isAuthorized())) {
+  const authorized = await isAuthorized()
+  console.log("[v0] GET /api/admin/content - authorized:", authorized)
+
+  if (!authorized) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
@@ -22,7 +25,10 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
-  if (!(await isAuthorized())) {
+  const authorized = await isAuthorized()
+  console.log("[v0] PUT /api/admin/content - authorized:", authorized)
+
+  if (!authorized) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
