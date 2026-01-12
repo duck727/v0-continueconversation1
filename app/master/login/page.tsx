@@ -2,7 +2,7 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 const MASTER_COOKIE = "master_auth"
-const MASTER_PASSWORD = "thsdudejr1!"
+const MASTER_PASSWORD = "master"
 
 async function loginAction(formData: FormData) {
   "use server"

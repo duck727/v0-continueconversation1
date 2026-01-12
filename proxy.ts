@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 const MASTER_COOKIE = "master_auth"
-const MASTER_PASSWORD = "thsdudejr1!"
+const MASTER_PASSWORD = "master"
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
