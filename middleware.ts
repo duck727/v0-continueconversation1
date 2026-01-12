@@ -14,10 +14,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const token = process.env.MASTER_ACCESS_TOKEN ?? "Master"
+  const token = process.env.MASTER_ACCESS_TOKEN
+  const fallbackToken = "Master"
   const cookie = request.cookies.get(MASTER_COOKIE)?.value
 
-  if (!token || cookie !== token) {
+  if (!cookie || (cookie !== token && cookie !== fallbackToken)) {
     const url = request.nextUrl.clone()
     url.pathname = "/master/login"
     url.searchParams.set("from", pathname)

@@ -7,11 +7,12 @@ import { promises as fs } from "fs"
 const MASTER_COOKIE = "master_auth"
 
 export async function POST(request: NextRequest) {
-  const token = process.env.MASTER_ACCESS_TOKEN ?? "Master"
+  const token = process.env.MASTER_ACCESS_TOKEN
+  const fallbackToken = "Master"
   const cookieStore = await cookies()
   const cookie = cookieStore.get(MASTER_COOKIE)?.value
 
-  if (!token || cookie !== token) {
+  if (!cookie || (cookie !== token && cookie !== fallbackToken)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 

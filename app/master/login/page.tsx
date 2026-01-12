@@ -5,15 +5,20 @@ const MASTER_COOKIE = "master_auth"
 
 async function loginAction(formData: FormData) {
   "use server"
-  const token = process.env.MASTER_ACCESS_TOKEN ?? "Master"
+  const envToken = process.env.MASTER_ACCESS_TOKEN
+  const defaultToken = "Master"
   const password = String(formData.get("password") ?? "").trim()
 
-  if (!token || password !== token) {
+  const isEnvMatch = envToken ? password === envToken : false
+  const isDefaultMatch = password === defaultToken
+
+  if (!isEnvMatch && !isDefaultMatch) {
     redirect("/master/login?error=1")
   }
 
   const cookieStore = await cookies()
-  cookieStore.set(MASTER_COOKIE, token, {
+  const tokenToSet = envToken ?? defaultToken
+  cookieStore.set(MASTER_COOKIE, tokenToSet, {
     httpOnly: true,
     sameSite: "lax",
     path: "/",

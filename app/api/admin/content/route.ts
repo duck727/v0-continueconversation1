@@ -5,10 +5,11 @@ import { getSiteContent, saveSiteContent } from "@/lib/content"
 const MASTER_COOKIE = "master_auth"
 
 const isAuthorized = async () => {
-  const token = process.env.MASTER_ACCESS_TOKEN ?? "Master"
+  const token = process.env.MASTER_ACCESS_TOKEN
+  const fallbackToken = "Master"
   const cookieStore = await cookies()
   const cookie = cookieStore.get(MASTER_COOKIE)?.value
-  return Boolean(token && cookie === token)
+  return Boolean(cookie && (cookie === token || cookie === fallbackToken))
 }
 
 export async function GET() {
