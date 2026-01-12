@@ -7,7 +7,7 @@ import { promises as fs } from "fs"
 const MASTER_COOKIE = "master_auth"
 
 export async function POST(request: NextRequest) {
-  const token = process.env.MASTER_ACCESS_TOKEN ?? "master"
+  const token = process.env.MASTER_ACCESS_TOKEN ?? "Master"
   const cookieStore = await cookies()
   const cookie = cookieStore.get(MASTER_COOKIE)?.value
 

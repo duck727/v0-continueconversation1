@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const token = process.env.MASTER_ACCESS_TOKEN ?? "master"
+  const token = process.env.MASTER_ACCESS_TOKEN ?? "Master"
   const cookie = request.cookies.get(MASTER_COOKIE)?.value
 
   if (!token || cookie !== token) {

@@ -5,7 +5,7 @@ const MASTER_COOKIE = "master_auth"
 
 async function loginAction(formData: FormData) {
   "use server"
-  const token = process.env.MASTER_ACCESS_TOKEN ?? "master"
+  const token = process.env.MASTER_ACCESS_TOKEN ?? "Master"
   const password = String(formData.get("password") ?? "")
 
   if (!token || password !== token) {
@@ -56,8 +56,7 @@ export default async function MasterLogin({ searchParams }: { searchParams: Prom
         </form>
 
         <p className="text-xs text-white/40 mt-6">
-          기본 토큰은 <span className="text-white">master</span> 입니다. 환경 변수로{" "}
-          <span className="text-white">MASTER_ACCESS_TOKEN</span>을 설정하면 변경할 수 있습니다.
+          관리자 토큰은 환경 변수 <span className="text-white">MASTER_ACCESS_TOKEN</span>으로 설정하세요.
         </p>
       </div>
     </div>

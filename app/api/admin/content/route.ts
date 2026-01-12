@@ -5,7 +5,7 @@ import { getSiteContent, saveSiteContent } from "@/lib/content"
 const MASTER_COOKIE = "master_auth"
 
 const isAuthorized = async () => {
-  const token = process.env.MASTER_ACCESS_TOKEN ?? "master"
+  const token = process.env.MASTER_ACCESS_TOKEN ?? "Master"
   const cookieStore = await cookies()
   const cookie = cookieStore.get(MASTER_COOKIE)?.value
   return Boolean(token && cookie === token)
