@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { EditableImage } from "@/components/editable-image"
+import { EditableText } from "@/components/editable-text"
 
 const brands = [
   {
@@ -10,6 +12,7 @@ const brands = [
     tagline: "Solid care. Zero waste.",
     description: "Amazon best-seller shampoo bars with proven viral success.",
     color: "from-emerald-500 to-teal-400",
+    image: "/tiktok-dermafirm-eyebrow-beauty.jpg",
   },
   {
     name: "KIERO",
@@ -17,6 +20,7 @@ const brands = [
     tagline: "K-Beauty meets LATAM.",
     description: "Practical, effective skincare built for global markets.",
     color: "from-pink-500 to-rose-400",
+    image: "/tiktok-its-skin-korean-beauty.jpg",
   },
   {
     name: "CODE BRO",
@@ -24,6 +28,7 @@ const brands = [
     tagline: "Men's care, built to convert.",
     description: "TikTok Shop sensation with 500K+ GMV in first month.",
     color: "from-blue-500 to-indigo-400",
+    image: "/tiktok-maxclinic-skincare-product.jpg",
   },
   {
     name: "404 LAB",
@@ -31,6 +36,7 @@ const brands = [
     tagline: "Trend-first beauty.",
     description: "Experimental beauty essentials for the next generation.",
     color: "from-purple-500 to-violet-400",
+    image: "/tiktok-milk-touch-mascara-beauty.jpg",
   },
 ]
 
@@ -51,17 +57,35 @@ export function BrandGrid() {
               className={`absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 rounded-full bg-gradient-to-r ${brand.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
             />
 
+            <EditableImage
+              storageKey={`brand-tile-image-${brand.name.toLowerCase().replace(/\\s+/g, "-")}`}
+              defaultSrc={brand.image}
+              alt={`${brand.name} preview`}
+              className="mb-6"
+              imageClassName="h-[180px]"
+            />
+
             {/* Brand name */}
             <span className="brand-name text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight">
               {brand.name}
             </span>
 
             {/* Tagline */}
-            <p className="text-white/40 text-sm mt-3 tracking-wide">{brand.tagline}</p>
+            <EditableText
+              storageKey={`brand-tile-tagline-${brand.name.toLowerCase().replace(/\\s+/g, "-")}`}
+              defaultValue={brand.tagline}
+              className="text-white/40 text-sm mt-3 tracking-wide"
+              as="p"
+            />
 
             {/* Hover content */}
             <div className="hover-content">
-              <p className="text-white/60 text-sm mb-4 leading-relaxed">{brand.description}</p>
+              <EditableText
+                storageKey={`brand-tile-description-${brand.name.toLowerCase().replace(/\\s+/g, "-")}`}
+                defaultValue={brand.description}
+                className="text-white/60 text-sm mb-4 leading-relaxed"
+                as="p"
+              />
               <span
                 className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${brand.color} bg-clip-text text-transparent`}
               >

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { EditableImage } from "@/components/editable-image"
 
 const brandData: Record<
   string,
@@ -9,6 +10,7 @@ const brandData: Record<
     tagline: string
     oneLiner: string
     color: string
+    image: string
     metrics: { label: string; value: string }[]
     skus: { name: string; description: string }[]
     channels: string[]
@@ -19,6 +21,7 @@ const brandData: Record<
     tagline: "Solid care. Zero waste.",
     oneLiner: "A bold solid-care brand proving performance on Amazon — built for sustainable, viral growth.",
     color: "from-emerald-500 to-teal-400",
+    image: "/tiktok-dermafirm-eyebrow-beauty.jpg",
     metrics: [
       { label: "Views (2025)", value: "100M+" },
       { label: "Hair Shampoo", value: "#1 New Release" },
@@ -42,6 +45,7 @@ const brandData: Record<
     tagline: "Practical, sensible, effective.",
     oneLiner: "K-Beauty science meets LATAM energy — built for everyday routines and creator-led growth.",
     color: "from-pink-500 to-rose-400",
+    image: "/tiktok-reto-beauty-skincare-serum.jpg",
     metrics: [
       { label: "Launch", value: "Mexico EBS" },
       { label: "Strategy", value: "TikTok Seeding" },
@@ -62,6 +66,7 @@ const brandData: Record<
     tagline: "Men's grooming, leveled up.",
     oneLiner: "Modern men's personal care brand with bold branding and effective formulas — built for conversion.",
     color: "from-blue-500 to-indigo-400",
+    image: "/tiktok-troubless-skincare-beauty-review.jpg",
     metrics: [
       { label: "First Month GMV", value: "500K+" },
       { label: "SKUs", value: "8" },
@@ -82,6 +87,7 @@ const brandData: Record<
     tagline: "Trend-first beauty.",
     oneLiner: "Experimental beauty collection for the modern consumer — designed for viral moments.",
     color: "from-purple-500 to-violet-400",
+    image: "/tiktok-milk-touch-mascara-beauty.jpg",
     metrics: [
       { label: "Status", value: "In Development" },
       { label: "Focus", value: "Gen-Z Beauty" },
@@ -141,6 +147,16 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
             <Link href="/" className="btn-pill btn-pill-outline">
               View All Brands
             </Link>
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <EditableImage
+              storageKey={`brand-hero-image-${slug}`}
+              defaultSrc={brand.image}
+              alt={`${brand.name} hero`}
+              className="w-full max-w-4xl"
+              imageClassName="h-[240px] md:h-[320px]"
+            />
           </div>
         </div>
       </section>
