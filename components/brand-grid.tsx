@@ -2,73 +2,82 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { ArrowRight } from "lucide-react"
 
 const brands = [
   {
     name: "MARSMADE",
     href: "/brands/marsmade",
-    tagline: "Solid care. Zero waste.",
-    description: "Amazon best-seller shampoo bars with proven viral success.",
-    color: "from-emerald-500 to-teal-400",
+    tagline: "Eco Hair & Body Care",
+    desc: "#1 Amazon New Release. Solid shampoo bars, sustainable beauty. High margin, low return rate.",
+    color: "#4AE3C3",
+    stats: "15 SKUs Available",
   },
   {
     name: "KIERO",
     href: "/brands/kiero",
-    tagline: "K-Beauty meets LATAM.",
-    description: "Practical, effective skincare built for global markets.",
-    color: "from-pink-500 to-rose-400",
+    tagline: "Premium K-Beauty Skincare",
+    desc: "Cica, Centella, Vitamin C lines. LATAM-ready packaging. FDA registered.",
+    color: "#EC4899",
+    stats: "8 SKUs Available",
   },
   {
     name: "CODE BRO",
     href: "/brands/code-bro",
-    tagline: "Men's care, built to convert.",
-    description: "TikTok Shop sensation with 500K+ GMV in first month.",
-    color: "from-blue-500 to-indigo-400",
+    tagline: "Men's Intimate Care",
+    desc: "$500K first month on TikTok Shop. Untapped men's category. Viral content library included.",
+    color: "#3B82F6",
+    stats: "8 SKUs Available",
   },
   {
-    name: "404 LAB",
-    href: "/brands/404-lab",
-    tagline: "Trend-first beauty.",
-    description: "Experimental beauty essentials for the next generation.",
-    color: "from-purple-500 to-violet-400",
+    name: "Your Store",
+    href: "#contact",
+    tagline: "Stock Our Brands",
+    desc: "Flexible MOQ. US warehouse ready. Marketing support included.",
+    color: "#A855F7",
+    stats: "Inquire Now",
   },
 ]
 
 export function BrandGrid() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-      {brands.map((brand, index) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+      {brands.map((brand, i) => (
         <motion.div
           key={brand.name}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ delay: i * 0.1, duration: 0.6 }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <Link href={brand.href} className="brand-tile-slush block group">
-            {/* Gradient accent */}
+          <Link href={brand.href} className="brand-tile block group">
+            {/* Top accent line */}
             <div
-              className={`absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 rounded-full bg-gradient-to-r ${brand.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{ background: brand.color }}
             />
 
+            {/* Category badge */}
+            <span className="text-xs font-semibold uppercase tracking-wider mb-3 block" style={{ color: brand.color }}>
+              {brand.tagline}
+            </span>
+
             {/* Brand name */}
-            <span className="brand-name text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+            <span className="text-3xl md:text-4xl font-bold text-white tracking-tight transition-transform duration-500 group-hover:-translate-y-2 block">
               {brand.name}
             </span>
 
-            {/* Tagline */}
-            <p className="text-white/40 text-sm mt-3 tracking-wide">{brand.tagline}</p>
+            <p className="text-white/40 text-sm mt-2 leading-relaxed">{brand.desc}</p>
 
-            {/* Hover content */}
-            <div className="hover-content">
-              <p className="text-white/60 text-sm mb-4 leading-relaxed">{brand.description}</p>
-              <span
-                className={`inline-flex items-center gap-2 text-sm font-semibold bg-gradient-to-r ${brand.color} bg-clip-text text-transparent`}
-              >
-                Explore Brand
-                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+            <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <span className="text-white/60 text-xs">{brand.stats}</span>
+            </div>
+
+            {/* Hover arrow */}
+            <div className="absolute bottom-8 left-0 right-0 flex justify-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+              <span className="flex items-center gap-2 text-sm font-medium" style={{ color: brand.color }}>
+                {brand.name === "Your Store" ? "Contact Sales" : "View Products"}
+                <ArrowRight className="w-4 h-4" />
               </span>
             </div>
           </Link>

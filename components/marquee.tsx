@@ -2,21 +2,25 @@
 
 export function Marquee() {
   const items = [
-    "Where K-trend starts",
-    "180+ Brand Partners",
-    "100M+ Views",
-    "TikTok Viral Engine",
-    "Global Distribution",
+    "Viral K-Beauty Brands",
+    "Ready to Stock",
+    "#1 Amazon Rankings",
+    "100M+ TikTok Views",
+    "US Warehouse Ready",
+    "Flexible MOQ",
   ]
 
   return (
-    <div className="marquee-container">
+    <div className="marquee-slush overflow-hidden">
       <div className="marquee-track">
         {[...Array(4)].map((_, setIndex) =>
           items.map((item, i) => (
-            <div key={`${setIndex}-${i}`} className="marquee-item text-white">
+            <div
+              key={`${setIndex}-${i}`}
+              className="flex items-center gap-8 px-8 text-[#030014] font-semibold text-sm tracking-wide whitespace-nowrap"
+            >
               <span>{item}</span>
-              <span className="text-white/60">✦</span>
+              <span className="text-[#030014]/40">✦</span>
             </div>
           )),
         )}

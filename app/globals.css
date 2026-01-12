@@ -4,26 +4,20 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* slush.app 색상 시스템 - 딥 네이비 + 틸/시안 악센트 */
   --background: #030014;
   --foreground: #ffffff;
-  --card: #0c0a1d;
+  --card: #0a0a1a;
   --card-foreground: #ffffff;
-  --popover: #0c0a1d;
-  --popover-foreground: #ffffff;
-  --primary: #ffffff;
+  --primary: #4ae3c3;
   --primary-foreground: #030014;
-  --secondary: #1a1625;
-  --secondary-foreground: #ffffff;
-  --muted: #2a2438;
-  --muted-foreground: #a1a1aa;
-  --accent: #3b82f6;
-  --accent-secondary: #22d3ee;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ef4444;
-  --border: #2a2438;
-  --input: #1a1625;
-  --ring: #3b82f6;
+  --secondary: #1a1a2e;
+  --muted: #2a2a40;
+  --muted-foreground: #8b8ba3;
+  --accent: #4ae3c3;
+  --accent-secondary: #3b82f6;
+  --border: rgba(255, 255, 255, 0.08);
+  --ring: #4ae3c3;
   --radius: 1rem;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -76,26 +70,26 @@
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --font-sans: "Inter", system-ui, sans-serif;
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
   --color-input: var(--input);
-  --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -103,7 +97,6 @@
   --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -117,7 +110,8 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+    @apply outline-ring/50;
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -129,171 +123,26 @@
 }
 
 @layer utilities {
-  /* Slush-style deep space gradient background */
-  .gradient-bg-slush {
-    background: radial-gradient(ellipse 100% 100% at 50% -20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse 80% 80% at 80% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 60% at 20% 80%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
-      linear-gradient(180deg, #030014 0%, #0a0520 50%, #030014 100%);
+  /* slush 스타일 그라디언트 배경 */
+  .slush-bg {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(74, 227, 195, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 100% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), #030014;
   }
 
-  /* Animated gradient orb */
-  .gradient-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.6;
-    animation: float 20s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    25% {
-      transform: translate(30px, -30px) scale(1.05);
-    }
-    50% {
-      transform: translate(-20px, 20px) scale(0.95);
-    }
-    75% {
-      transform: translate(20px, 30px) scale(1.02);
-    }
-  }
-
-  /* Glass card - slush style */
-  .glass-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 1.5rem;
-  }
-
-  .glass-card:hover {
-    border-color: rgba(59, 130, 246, 0.3);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-  }
-
-  /* Brand tile - slush style with larger size */
-  .brand-tile-slush {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 280px;
-    padding: 3rem 2rem;
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 2rem;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .brand-tile-slush::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-  }
-
-  .brand-tile-slush:hover::before {
-    opacity: 1;
-  }
-
-  .brand-tile-slush:hover {
-    border-color: rgba(59, 130, 246, 0.4);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 0 80px rgba(59, 130, 246, 0.2), 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  }
-
-  .brand-tile-slush .brand-name {
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2;
-  }
-
-  .brand-tile-slush:hover .brand-name {
-    transform: translateY(-16px);
-  }
-
-  .brand-tile-slush .hover-content {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 0;
-    right: 0;
-    text-align: center;
-    padding: 0 2rem;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: all 0.4s ease;
-    z-index: 2;
-  }
-
-  .brand-tile-slush:hover .hover-content {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Slush-style pill button */
-  .btn-pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 1rem 2.5rem;
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: -0.01em;
-    border-radius: 9999px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .btn-pill-primary {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    color: white;
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
-  }
-
-  .btn-pill-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 50px rgba(59, 130, 246, 0.6), 0 20px 40px rgba(0, 0, 0, 0.3);
-  }
-
-  .btn-pill-white {
-    background: white;
-    color: #030014;
-  }
-
-  .btn-pill-white:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3), 0 20px 40px rgba(0, 0, 0, 0.3);
-  }
-
-  .btn-pill-outline {
-    background: transparent;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .btn-pill-outline:hover {
-    border-color: rgba(59, 130, 246, 0.6);
-    background: rgba(59, 130, 246, 0.1);
-    transform: translateY(-3px);
-  }
-
-  /* Gradient text - blue to cyan */
-  .text-gradient-blue {
-    background: linear-gradient(135deg, #3b82f6 0%, #22d3ee 100%);
+  /* 틸 그라디언트 텍스트 */
+  .text-gradient-teal {
+    background: linear-gradient(135deg, #4ae3c3 0%, #22d3ee 50%, #3b82f6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Marquee */
+  /* slush 마키 밴드 - 틸 그라디언트 */
+  .marquee-slush {
+    background: linear-gradient(90deg, #4ae3c3 0%, #22d3ee 50%, #4ae3c3 100%);
+    padding: 0.875rem 0;
+  }
+
   @keyframes marquee {
     0% {
       transform: translateX(0);
@@ -303,42 +152,106 @@
     }
   }
 
-  .marquee-container {
-    overflow: hidden;
-    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #3b82f6 100%);
-    padding: 1rem 0;
-  }
-
   .marquee-track {
     display: flex;
-    animation: marquee 30s linear infinite;
+    animation: marquee 25s linear infinite;
     width: fit-content;
   }
 
-  .marquee-item {
-    display: flex;
+  /* slush pill 버튼 */
+  .btn-slush {
+    display: inline-flex;
     align-items: center;
-    gap: 3rem;
-    padding: 0 3rem;
-    white-space: nowrap;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
     font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    font-size: 0.9375rem;
+    border-radius: 9999px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
   }
 
-  /* Review card - slush style */
-  .review-card {
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+  .btn-slush-primary {
+    background: #4ae3c3;
+    color: #030014;
+  }
+
+  .btn-slush-primary:hover {
+    background: #5aefd0;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(74, 227, 195, 0.4);
+  }
+
+  .btn-slush-white {
+    background: white;
+    color: #030014;
+  }
+
+  .btn-slush-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-slush-outline {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-slush-outline:hover {
+    border-color: #4ae3c3;
+    color: #4ae3c3;
+  }
+
+  /* slush 글래스 카드 */
+  .card-slush {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 1.5rem;
-    padding: 2rem;
     transition: all 0.4s ease;
   }
 
-  .review-card:hover {
-    border-color: rgba(59, 130, 246, 0.3);
+  .card-slush:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(74, 227, 195, 0.3);
     transform: translateY(-4px);
+  }
+
+  /* 브랜드 타일 - 대형 */
+  .brand-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 2rem;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .brand-tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(74, 227, 195, 0.12) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .brand-tile:hover::before {
+    opacity: 1;
+  }
+
+  .brand-tile:hover {
+    border-color: rgba(74, 227, 195, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 0 60px rgba(74, 227, 195, 0.15), 0 30px 60px rgba(0, 0, 0, 0.4);
   }
 
   /* Metric card */
@@ -355,6 +268,16 @@
     border-color: rgba(59, 130, 246, 0.3);
     transform: translateY(-6px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  /* 피쳐 불릿 */
+  .feature-dot {
+    width: 8px;
+    height: 8px;
+    background: #4ae3c3;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #4ae3c3;
+    flex-shrink: 0;
   }
 
   /* Feature bullet with glow */
@@ -397,6 +320,19 @@
     border-color: rgba(59, 130, 246, 0.3);
     transform: translateY(-6px);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  /* 리뷰 카드 */
+  .review-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .review-card:hover {
+    border-color: rgba(74, 227, 195, 0.3);
   }
 
   /* Animated fade up */
@@ -494,5 +430,75 @@
 
   .cta-btn-marquee:hover {
     transform: scale(1.08) translateY(-2px);
+  }
+
+  /* CTA 마키 버튼들 */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    margin: 0 0.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .cta-btn:hover {
+    transform: scale(1.05);
+  }
+
+  /* 페이드 업 애니메이션 */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-up {
+    animation: fadeUp 0.7s ease-out forwards;
+  }
+
+  /* 스태거 애니메이션 */
+  .stagger > *:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .stagger > *:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .stagger > *:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .stagger > *:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  .stagger > *:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  /* 글로우 오브 */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(30px, -30px);
+    }
+  }
+
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    animation: float 20s ease-in-out infinite;
   }
 }
