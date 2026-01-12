@@ -7,6 +7,8 @@ import { Marquee } from "@/components/marquee"
 import { CTAMarquee } from "@/components/cta-marquee"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { HeroText } from "@/components/hero-text"
+import { EditableText } from "@/components/editable-text"
+import { EditableImage } from "@/components/editable-image"
 import { ArrowRight, Zap, Globe, TrendingUp, Users } from "lucide-react"
 
 export default function Home() {
@@ -36,7 +38,11 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-8"
             >
-              Where K-Trend Starts
+              <EditableText
+                storageKey="home-hero-tagline"
+                defaultValue="Where K-Trend Starts"
+                className="inline-flex"
+              />
             </motion.p>
 
             {/* Main headline */}
@@ -52,7 +58,10 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.5 }}
               className="text-xl md:text-2xl text-white/50 max-w-2xl mb-12 leading-relaxed"
             >
-              EOEO transforms brands into viral sensations through TikTok-first marketing and global distribution.
+              <EditableText
+                storageKey="home-hero-subtext"
+                defaultValue="EOEO transforms brands into viral sensations through TikTok-first marketing and global distribution."
+              />
             </motion.p>
 
             {/* CTA Buttons */}
@@ -89,6 +98,21 @@ export default function Home() {
                 </div>
               ))}
             </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.9 }}
+              className="mt-16"
+            >
+              <EditableImage
+                storageKey="home-hero-image"
+                defaultSrc="/viral_marketing.jpg"
+                alt="EOEO hero visual"
+                className="max-w-4xl"
+                imageClassName="h-[280px] md:h-[380px] lg:h-[420px]"
+              />
+            </motion.div>
           </div>
         </div>
       </section>
@@ -104,9 +128,12 @@ export default function Home() {
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
               Private <span className="text-gradient-blue">Brands</span>
             </h2>
-            <p className="text-white/40 text-lg max-w-xl mx-auto">
-              Built for virality. Designed for scale. Ready for global markets.
-            </p>
+            <EditableText
+              storageKey="home-portfolio-subtext"
+              defaultValue="Built for virality. Designed for scale. Ready for global markets."
+              className="text-white/40 text-lg max-w-xl mx-auto"
+              as="p"
+            />
           </ScrollReveal>
 
           <BrandGrid />
@@ -124,15 +151,18 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             {/* Left - Text content */}
             <ScrollReveal>
-              <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-6">Why EOEO</p>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-[1.1]">
-                Not ads.
-                <br />
-                <span className="text-gradient-blue">Virality.</span>
-              </h2>
-              <p className="text-xl text-white/50 mb-10 leading-relaxed">
-                TikTok is our engine. We don't just distribute — we create cultural moments that drive conversion.
-              </p>
+            <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-6">Why EOEO</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-[1.1]">
+              Not ads.
+              <br />
+              <span className="text-gradient-blue">Virality.</span>
+            </h2>
+            <EditableText
+              storageKey="home-virality-subtext"
+              defaultValue="TikTok is our engine. We don't just distribute — we create cultural moments that drive conversion."
+              className="text-xl text-white/50 mb-10 leading-relaxed"
+              as="p"
+            />
 
               <div className="space-y-0">
                 {[
@@ -194,6 +224,16 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
+          <div className="mb-14 flex justify-center">
+            <EditableImage
+              storageKey="home-results-image"
+              defaultSrc="/tiktok-influencer-beauty-product-review.jpg"
+              alt="Results visual"
+              className="w-full max-w-4xl"
+              imageClassName="h-[240px] md:h-[320px]"
+            />
+          </div>
+
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
@@ -240,7 +280,12 @@ export default function Home() {
               <br />
               <span className="text-gradient-blue">viral brand.</span>
             </h2>
-            <p className="text-white/50 text-xl mb-6">Partnership · Distribution · PB inquiries</p>
+            <EditableText
+              storageKey="home-contact-subtext"
+              defaultValue="Partnership · Distribution · PB inquiries"
+              className="text-white/50 text-xl mb-6"
+              as="p"
+            />
             <a
               href="mailto:contact@eoeo.company"
               className="text-white/40 hover:text-white transition-colors text-lg block mb-12"
