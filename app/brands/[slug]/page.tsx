@@ -1,101 +1,38 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { getSiteContent } from "@/lib/content"
 
-const brandData: Record<
-  string,
-  {
-    name: string
-    tagline: string
-    oneLiner: string
-    color: string
-    metrics: { label: string; value: string }[]
-    skus: { name: string; description: string }[]
-    channels: string[]
+const renderHeroMedia = (media?: { type: "image" | "video"; url: string; alt?: string; poster?: string }) => {
+  if (!media?.url) return null
+
+  if (media.type === "video") {
+    return (
+      <video
+        className="w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl"
+        src={media.url}
+        poster={media.poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+    )
   }
-> = {
-  marsmade: {
-    name: "MARSMADE",
-    tagline: "Solid care. Zero waste.",
-    oneLiner: "A bold solid-care brand proving performance on Amazon — built for sustainable, viral growth.",
-    color: "#4AE3C3",
-    metrics: [
-      { label: "Views (2025)", value: "100M+" },
-      { label: "Hair Shampoo", value: "#1 New Release" },
-      { label: "Category Rank", value: "Top #5" },
-      { label: "Amazon Rating", value: "4.7★" },
-      { label: "Eco Impact", value: "1 bar = 2-3 bottles" },
-      { label: "Packaging", value: "Zero plastic" },
-    ],
-    skus: [
-      { name: "Castor Oil Shampoo Bar", description: "Moisturize & strengthen hair and scalp." },
-      { name: "Rosemary Shampoo Bar", description: "Refresh scalp & support fuller-looking hair." },
-      { name: "Tea Tree Shampoo Bar", description: "Purify & balance scalp." },
-      { name: "Rice Water Shampoo Bar", description: "Strengthen & improve elasticity." },
-      { name: "Castor Oil Conditioner Bar", description: "Nourish, detangle, enhance shine." },
-      { name: "PLA Mesh Saver", description: "Keep bars dry & long-lasting." },
-    ],
-    channels: ["Amazon.com", "DTC Website", "TikTok Shop"],
-  },
-  kiero: {
-    name: "KIERO",
-    tagline: "Practical, sensible, effective.",
-    oneLiner: "K-Beauty science meets LATAM energy — built for everyday routines and creator-led growth.",
-    color: "#EC4899",
-    metrics: [
-      { label: "Launch", value: "Mexico EBS" },
-      { label: "Strategy", value: "TikTok Seeding" },
-      { label: "Concept", value: "5-Step Routine" },
-      { label: "Status", value: "Creator Ready" },
-    ],
-    skus: [
-      { name: "Calm Enzyme Cleanser", description: "Gentle cleanse for daily routines." },
-      { name: "Airy Sun Stick", description: "Easy re-application, on-the-go UV care." },
-      { name: "Prime Sun Gel", description: "Lightweight daily sun protection." },
-      { name: "Centella Boost Serum", description: "Calm & hydrate for everyday recovery." },
-      { name: "Hydrating Eye Cream", description: "Daily moisture for the eye area." },
-    ],
-    channels: ["LATAM Retail", "TikTok Shop", "Global Expansion"],
-  },
-  "code-bro": {
-    name: "CODE BRO",
-    tagline: "Men's grooming, leveled up.",
-    oneLiner: "Modern men's personal care brand with bold branding and effective formulas — built for conversion.",
-    color: "#3B82F6",
-    metrics: [
-      { label: "First Month GMV", value: "500K+" },
-      { label: "SKUs", value: "8" },
-      { label: "Market", value: "US" },
-      { label: "Focus", value: "Men's Care" },
-    ],
-    skus: [
-      { name: "MORNING WOOD", description: "Energizing morning face wash." },
-      { name: "FRENCH BALLDOG", description: "Cooling body wash." },
-      { name: "CLEAN BEANS", description: "Intimate care for men." },
-      { name: "WOOD MORNING", description: "PM recovery face wash." },
-      { name: "DOWN UNDER", description: "Below-the-belt powder." },
-    ],
-    channels: ["Amazon US", "TikTok Shop US"],
-  },
-  "404-lab": {
-    name: "404 LAB",
-    tagline: "Trend-first beauty.",
-    oneLiner: "Experimental beauty collection for the modern consumer — designed for viral moments.",
-    color: "#A855F7",
-    metrics: [
-      { label: "Status", value: "In Development" },
-      { label: "Focus", value: "Gen-Z Beauty" },
-      { label: "Strategy", value: "Trend-First" },
-      { label: "Launch", value: "2025" },
-    ],
-    skus: [{ name: "Coming Soon", description: "Product lineup in development." }],
-    channels: ["TBD"],
-  },
+
+  return (
+    <img
+      className="w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl"
+      src={media.url}
+      alt={media.alt ?? \"Brand hero visual\"}
+    />
+  )
 }
 
 export default async function BrandPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const brand = brandData[slug]
+  const content = await getSiteContent()
+  const brand = content.brands[slug]
 
   if (!brand) {
     notFound()
@@ -131,7 +68,18 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
           <div className="w-24 h-1 mx-auto rounded-full mb-8" style={{ background: brand.color }} />
 
           <p className="text-2xl md:text-3xl text-white/70 font-medium mb-4">{brand.tagline}</p>
-          <p className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto mb-14 leading-relaxed">{brand.oneLiner}</p>
+          <p className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto mb-10 leading-relaxed">{brand.oneLiner}</p>
+
+          {brand.heroMedia?.url ? (
+            <div className="max-w-3xl mx-auto mb-14">
+              <div className="relative aspect-[16/9] rounded-3xl overflow-hidden bg-white/5">
+                {renderHeroMedia(brand.heroMedia)}
+              </div>
+              <p className="text-xs text-white/40 mt-4">
+                Swap this hero media from the master page to keep brand visuals current.
+              </p>
+            </div>
+          ) : null}
 
           <div className="flex flex-wrap gap-4 justify-center">
             <a href="mailto:contact@eoeo.company" className="btn-slush btn-slush-white">
