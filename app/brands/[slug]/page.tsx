@@ -23,14 +23,14 @@ const renderHeroMedia = (media?: { type: "image" | "video"; url: string; alt?: s
   return (
     <img
       className="w-full h-full object-cover rounded-3xl border border-white/10 shadow-2xl"
-      src={media.url}
-      alt={media.alt ?? \"Brand hero visual\"}
+      src={media.url || "/placeholder.svg"}
+      alt={media.alt ?? "Brand hero visual"}
     />
   )
 }
 
-export default async function BrandPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
+export default async function BrandPage({ params }: { params: { slug: string } }) {
+  const { slug } = params
   const content = await getSiteContent()
   const brand = content.brands[slug]
 
