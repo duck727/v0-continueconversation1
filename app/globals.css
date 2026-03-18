@@ -1,3 +1,4 @@
+@import url("https://fonts.cdnfonts.com/css/telegraf");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -500,5 +501,9 @@
     border-radius: 50%;
     filter: blur(100px);
     animation: float 20s ease-in-out infinite;
+  }
+
+  .font-telegraf {
+    font-family: "Telegraf", "Inter", system-ui, sans-serif;
   }
 }
